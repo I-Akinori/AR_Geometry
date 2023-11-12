@@ -1,19 +1,11 @@
 const width = window.innerWidth, height = window.innerHeight;
 
 // init
-
-//const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
 const camera = new THREE.OrthographicCamera(-1, +1, height / width, -height / width, 0.01, 1000);
 camera.position.z = 1;
 
 
 const scene = new THREE.Scene();
-
-const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-const material = new THREE.MeshNormalMaterial();
-
-const mesh = new THREE.Mesh(geometry, material);
-//scene.add(mesh);
 
 let points = [];
 const segments = 128;
@@ -23,7 +15,7 @@ const lines = [];
 for (i = 0; i < orbits; i++)
 {
 	let line_geometry = new THREE.BufferGeometry().setFromPoints(points);
-	let line_material = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.3 });
+	let line_material = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.3, linewidth: 1 });
 	let line = new THREE.LineLoop(line_geometry, line_material);
 	line.material.color.setHSL(1 - i / orbits, 1, 0.5);
 	scene.add(line);
@@ -46,9 +38,7 @@ const trail_material = new THREE.LineBasicMaterial({ color: 0xffffff, vertexColo
 var vertices = [];
 var colors = [];
 for (i = 0; i < orbits; i++) {
-	//vertices.push(new THREE.Vector3(0, 0, 0));
 	vertices.push(0); vertices.push(0); vertices.push(0);
-	//lines[i].material.color;
 	colors.push(lines[i].material.color.r); colors.push(lines[i].material.color.g); colors.push(lines[i].material.color.b);
 }
 trail_geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
@@ -64,7 +54,6 @@ document.body.appendChild(renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 // animation
-
 function animation(time) {
 
 	mesh.rotation.x = time / 2000;
