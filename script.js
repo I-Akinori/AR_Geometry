@@ -56,9 +56,6 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
 // animation
 function animation(time) {
 
-	mesh.rotation.x = time / 2000;
-	mesh.rotation.y = time / 1000;
-
 	let t = time / 5000 / orbits;
 	vertices = trail.geometry.attributes.position.array;
 
